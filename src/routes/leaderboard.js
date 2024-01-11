@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useCollectionDataOnce, useDocument, useCollectionData } from "react-firebase-hooks/firestore";
 import { useNavigate } from "react-router-dom";
-import { Header, Loader, Message, Table } from "semantic-ui-react";
+import { Checkbox, Header, Loader, Message, Table } from "semantic-ui-react";
 import { auth, firestore, functions } from "../firebase";
 import { noTocode } from "../temp";
 import { codeTono } from "../temp";
@@ -107,6 +107,7 @@ export default function Leaderboard() {
             <Table.HeaderCell>찾은 문제</Table.HeaderCell>
             <Table.HeaderCell>푼 문제</Table.HeaderCell>
             <Table.HeaderCell>전화번호</Table.HeaderCell>
+            <Table.HeaderCell>체크</Table.HeaderCell>
           </Table.Row>
         </Table.Header>
         <Table.Body>
@@ -117,7 +118,8 @@ export default function Leaderboard() {
                 <Table.Cell>{Math.floor(x[0])}</Table.Cell>
                 <Table.Cell>{x[1]}</Table.Cell>
                 <Table.Cell>{x[2]}</Table.Cell>
-                <Table.Cell>010-****-{x[3].slice(9)}</Table.Cell>
+                <Table.Cell>{x[3]}</Table.Cell>
+                <Table.Cell>{rank.get(x[0] * 1000 + x[2])<=11 ? <Checkbox></Checkbox>: null}</Table.Cell>
               </Table.Row>
             )
           }
